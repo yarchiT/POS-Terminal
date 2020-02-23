@@ -8,4 +8,17 @@
   <ItemGroup>
     <ProjectReference Include="..\POSTerminal\POSTerminal.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="ProductPrice.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ProductPrice.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProductPrice.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

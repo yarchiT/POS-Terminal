@@ -10,6 +10,11 @@ namespace POSTerminal.Services
         private IEnumerable<Product> _products;
         private Dictionary<string, int> _scannedProducts;
 
+        public ShopTerminal()
+        {
+            _scannedProducts = new Dictionary<string, int>();
+        }
+
         public void SetPricing(IEnumerable<Product> products)
         {
             _products = products;
