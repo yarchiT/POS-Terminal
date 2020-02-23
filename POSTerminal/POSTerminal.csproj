@@ -6,5 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\PricingService\" />
   </ItemGroup>
 </Project>
