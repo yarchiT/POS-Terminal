@@ -9,6 +9,8 @@ namespace POSTerminal.Services
 
         void Scan(string productCode);
 
-        decimal CalculateTotal();
+        decimal CalculateCurrent();
+
+        decimal Checkout();
     }
 }
