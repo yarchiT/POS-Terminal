@@ -8,5 +8,6 @@
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Services\PricingService\" />
+    <Folder Include="Services\DiscountService\" />
   </ItemGroup>
 </Project>

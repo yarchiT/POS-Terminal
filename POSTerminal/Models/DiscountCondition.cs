@@ -1,10 +1,9 @@
-﻿using System;
-namespace POSTerminal.Models
+﻿namespace POSTerminal.Models
 {
     public class DiscountCondition
     {
-        public DiscountCondition()
-        {
-        }
+        public decimal Amount { get; set; }
+
+        public decimal Percent { get; set; }
     }
 }
