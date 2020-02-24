@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using POSTerminal.Models;
+using POSTerminal.Util;
 
 namespace POSTerminal.Services.DiscountService
 {
     public class DiscountService : IDiscountService
     {
-        public DiscountService()
+        private readonly string _filePath;
+
+        public DiscountService(string filePath)
         {
+            _filePath = filePath;
         }
 
         public decimal GetDiscountForAmount(decimal amount)
@@ -17,7 +22,12 @@ namespace POSTerminal.Services.DiscountService
 
         public IEnumerable<DiscountCondition> SetDiscountConditions()
         {
-            throw new NotImplementedException();
+            
+            List<DiscountCondition> discountConditions = new List<DiscountCondition>();
+
+            var discountConditionsInput = FileReadManager.ReadFromFile(_filePath);
+
+            return discountConditions;
         }
     }
 }

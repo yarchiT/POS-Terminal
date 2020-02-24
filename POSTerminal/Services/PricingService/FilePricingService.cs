@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using POSTerminal.Models;
+using POSTerminal.Util;
 
 namespace POSTerminal.Services.PricingService
 {
@@ -18,11 +18,11 @@ namespace POSTerminal.Services.PricingService
         {
             List<Product> products = new List<Product>();
 
-            var productLines = ReadProductPricesFromFile();
+            var productsInput = FileReadManager.ReadFromFile(_filePath);
 
             try
             {
-                foreach (var item in productLines)
+                foreach (var item in productsInput)
                 {
                     var productLine = item.Split(' ');
 
@@ -47,30 +47,6 @@ namespace POSTerminal.Services.PricingService
             }
 
             return products;
-        }
-
-        private string[] ReadProductPricesFromFile()
-        {
-            string[] productLines;
-
-            if (File.Exists(_filePath))
-            {
-                try
-                {
-                    productLines = File.ReadAllLines(_filePath);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Coudn't read product prices from file with path {_filePath}", ex);
-                }
-
-            }
-            else
-            {
-                throw new Exception($"File with path {_filePath} doesn't exist in project directory");
-            }
-
-            return productLines;
         }
     }
 }

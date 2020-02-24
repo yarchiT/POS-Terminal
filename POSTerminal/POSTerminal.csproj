@@ -9,5 +9,6 @@
     <Folder Include="Services\" />
     <Folder Include="Services\PricingService\" />
     <Folder Include="Services\DiscountService\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 </Project>
