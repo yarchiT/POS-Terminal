@@ -65,8 +65,6 @@ namespace POSTerminal.Services
                 currentTotal += productTotalPrice;
             }
 
-            _scannedProducts.Clear();
-
             return currentTotal;
         }
 
