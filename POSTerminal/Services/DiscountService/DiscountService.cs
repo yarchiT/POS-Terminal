@@ -32,7 +32,7 @@ namespace POSTerminal.Services.DiscountService
 
                     DiscountCondition discountCondition = new DiscountCondition();
 
-                    var discountConditionAmountRange = item.Split("-");
+                    var discountConditionAmountRange = discountConditionLine[0].Split("-");
                     discountCondition.AmountFrom = decimal.Parse(discountConditionAmountRange[0]);
 
                     if (discountConditionAmountRange.Length == 2)
