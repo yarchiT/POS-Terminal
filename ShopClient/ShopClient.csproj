@@ -16,4 +16,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="ProductPrice.txt" />
+    <None Remove="DiscountConditions.txt" />
+  </ItemGroup>
 </Project>

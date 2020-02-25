@@ -12,5 +12,9 @@ namespace POSTerminal.Services
         decimal CalculateCurrent();
 
         decimal Checkout();
+
+        void SetDiscounts(IEnumerable<DiscountCondition> discountConditions);
+
+        decimal CheckoutWithDiscount(DiscountCard discountCard);
     }
 }

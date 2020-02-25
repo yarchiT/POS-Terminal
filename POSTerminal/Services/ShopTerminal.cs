@@ -8,6 +8,7 @@ namespace POSTerminal.Services
     public class ShopTerminal : ITerminal
     {
         private IEnumerable<Product> _products;
+        private IEnumerable<DiscountCondition> _discountConditions;
         private Dictionary<string, int> _scannedProducts;
 
         public ShopTerminal()
@@ -18,6 +19,11 @@ namespace POSTerminal.Services
         public void SetPricing(IEnumerable<Product> products)
         {
             _products = products;
+        }
+
+        public void SetDiscounts(IEnumerable<DiscountCondition> discountConditions)
+        {
+            _discountConditions = discountConditions;
         }
 
         public void Scan(string productCode)
@@ -75,5 +81,64 @@ namespace POSTerminal.Services
 
             return total;
         }
+
+        public decimal CheckoutWithDiscount(DiscountCard discountCard)
+        {
+            if (_discountConditions == null)
+            {
+                throw new Exception("Discounts are not set up");
+            }
+
+            if (discountCard.DiscountPercent == 0)
+            {
+                discountCard.DiscountPercent = getUpdatedDiscountCardPercent(discountCard.AmountOfSale);
+            }
+
+            var (volumePriceTotal, unitPriceTotal) = getVolumeAndUnitPricesForDiscountCheck();
+
+            var unitDiscount = discountCard.DiscountPercent == 0 ? 0 : unitPriceTotal * discountCard.DiscountPercent / 100;
+
+            discountCard.AmountOfSale += unitPriceTotal;
+            discountCard.DiscountPercent = getUpdatedDiscountCardPercent(discountCard.AmountOfSale);
+            
+            _scannedProducts.Clear();
+
+            return volumePriceTotal + unitPriceTotal - unitDiscount;
+        }
+
+        private (decimal volumePriceTotal, decimal unitPriceTotal) getVolumeAndUnitPricesForDiscountCheck()
+        {
+            decimal volumePriceTotal = 0;
+            decimal unitPriceTotal = 0;
+
+            foreach (var (productKey, numberOfProducts) in _scannedProducts)
+            {
+                var product = _products.Single(p => p.Code == productKey);
+
+                if (product.NumberForVolume != null && numberOfProducts >= product.NumberForVolume.Value)
+                {
+                    var amountOfVolumes = numberOfProducts / product.NumberForVolume.Value;
+                    volumePriceTotal += amountOfVolumes * product.VolumePrice.Value;
+                    unitPriceTotal += (numberOfProducts - amountOfVolumes * product.NumberForVolume.Value) * product.UnitPrice;
+                }
+                else
+                {
+                    unitPriceTotal += numberOfProducts * product.UnitPrice;
+                }
+            }
+
+            return (volumePriceTotal, unitPriceTotal);
+        }
+
+        private decimal getUpdatedDiscountCardPercent(decimal discountCardAmountOfSale)
+        {
+            var discountCondition = _discountConditions
+                .FirstOrDefault(dc => discountCardAmountOfSale >= dc.AmountFrom
+                && (dc.AmountTo == null || dc.AmountTo.Value > discountCardAmountOfSale));
+
+            return discountCondition == null ? 0 : discountCondition.Percent;
+        }
+
+        
     }
 }
