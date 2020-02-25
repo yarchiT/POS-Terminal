@@ -41,8 +41,23 @@ namespace POSTerminal.Tests
         }
 
         [Theory]
-        [InlineData("C C C C C C", 5.0)]
+        [InlineData("C C C C C C C", 6.0)]
         public void CalculateCurrent_ListOfProducts_ReturnsVolumePrice(string inputList, decimal expected)
+        {
+            var terminal = GetBasicTerminal();
+            foreach (var productCode in inputList.Split(" "))
+            {
+                terminal.Scan(productCode);
+            }
+
+            var currentTotal = terminal.CalculateCurrent();
+
+            Assert.Equal(expected, currentTotal);
+        }
+
+        [Theory]
+        [InlineData("A B C D", 7.25)]
+        public void CalculateCurrent_ListOfProducts_ReturnsSumOfUnitPrices(string inputList, decimal expected)
         {
             var terminal = GetBasicTerminal();
             foreach (var productCode in inputList.Split(" "))
