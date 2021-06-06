@@ -4,11 +4,13 @@
     {
         public readonly string Code;
         public readonly decimal Price;
+        public readonly VolumeDiscount? VolumeDiscount;
 
-        public Product(string code, decimal price)
+        public Product(string code, decimal price, VolumeDiscount? volumeDiscount = null)
         {
             Code = code;
             Price = price;
+            VolumeDiscount = volumeDiscount;
         }
     }
 }
