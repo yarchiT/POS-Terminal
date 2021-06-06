@@ -1,6 +1,6 @@
-﻿namespace POSTerminal
+﻿namespace POSTerminal.Discount
 {
-    public class VolumeDiscount
+    public class VolumeDiscount : Discount
     {
         private readonly decimal Price;
         private readonly int Quantity;
@@ -11,7 +11,7 @@
             Quantity = quantity;
         }
 
-        public decimal GetTotalPrice(int itemsQuantity, decimal unitPrice) =>
+        public override decimal GetTotalPrice(int itemsQuantity, decimal unitPrice) =>
             itemsQuantity / Quantity * Price + itemsQuantity % Quantity * unitPrice;
     }
 }

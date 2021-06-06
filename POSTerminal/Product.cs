@@ -1,4 +1,6 @@
-﻿namespace POSTerminal
+﻿using POSTerminal.Discount;
+
+namespace POSTerminal
 {
     public class Product
     {

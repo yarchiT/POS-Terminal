@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using POSTerminal.Discount;
+using Xunit;
 
 namespace POSTerminal.Tests
 {

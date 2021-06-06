@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using POSTerminal.Discount;
 using POSTerminal.Tests.Extensions;
 using Xunit;
 
