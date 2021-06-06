@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSTerminal", "POSTerminal\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopClient", "ShopClient\ShopClient.csproj", "{5AA9F3F4-0CF5-4C11-971F-A9B9737722CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSTerminal.Tests", "POSTerminal.Tests\POSTerminal.Tests.csproj", "{1E9B994A-1A0D-4983-8843-4C605A416DBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{5AA9F3F4-0CF5-4C11-971F-A9B9737722CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AA9F3F4-0CF5-4C11-971F-A9B9737722CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AA9F3F4-0CF5-4C11-971F-A9B9737722CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E9B994A-1A0D-4983-8843-4C605A416DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9B994A-1A0D-4983-8843-4C605A416DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9B994A-1A0D-4983-8843-4C605A416DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E9B994A-1A0D-4983-8843-4C605A416DBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
