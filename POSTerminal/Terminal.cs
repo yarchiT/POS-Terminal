@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using POSTerminal.Discount;
 
 namespace POSTerminal
 {
@@ -8,6 +9,7 @@ namespace POSTerminal
     {
         private readonly Dictionary<string, Product> _products;
         private List<SaleItem> _sale = new();
+        private DiscountCard _discountCard;
 
         public Terminal(Dictionary<string, Product> products)
         {
@@ -29,6 +31,12 @@ namespace POSTerminal
             }
 
             saleItem.Increment();
+        }
+
+        public void Scan(DiscountCard discountCard)
+        {
+            _discountCard = discountCard;
+            _sale.ForEach(x => x.ApplyDiscount(discountCard));
         }
 
         public decimal CalculateTotal() =>
