@@ -42,5 +42,18 @@ namespace POSTerminal.Tests
 
             Assert.Equal(3, saleItem.Total());
         }
+
+        [Fact]
+        public void Total_WithDiscountCard_ReturnsReducedPrice()
+        {
+            var saleItem = new SaleItem(new Product("A", 250));
+            saleItem.Increment();
+            saleItem.Increment();
+            saleItem.Increment();
+
+            saleItem.ApplyDiscount(new DiscountCard(1500));
+
+            Assert.Equal(990, saleItem.Total());
+        }
     }
 }
