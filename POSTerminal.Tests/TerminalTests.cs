@@ -41,10 +41,43 @@ namespace POSTerminal.Tests
         public void Checkout_ExistingProducts_FinishesSale()
         {
             var terminal = new Terminal(GetCatalog());
-            terminal.ScanAll("ABA");
+            terminal.ScanAll("CCCCCCC");
 
             Assert.Equal((decimal)6.75, terminal.Checkout());
             Assert.Equal(0, terminal.CalculateTotal());
+        }
+
+        [Fact]
+        public void ScanDiscountCard_AddProductsWithVolumeDiscount_ReturnsVolumePrice()
+        {
+            var terminal = new Terminal(GetCatalog());
+
+            terminal.Scan(new DiscountCard(1000));
+            terminal.ScanAll("CCCCCCC");
+
+            Assert.Equal((decimal)6.00, terminal.CalculateTotal());
+        }
+
+        [Fact]
+        public void ScanDiscountCard_BeforeAddingProducts_ReturnsReducedPrice()
+        {
+            var terminal = new Terminal(GetCatalog());
+
+            terminal.Scan(new DiscountCard(1000));
+            terminal.ScanAll("BBBB");
+
+            Assert.Equal((decimal)16.83, terminal.CalculateTotal());
+        }
+
+        [Fact]
+        public void ScanDiscountCard_AfterAddingProducts_ReturnsReducedPrice()
+        {
+            var terminal = new Terminal(GetCatalog());
+
+            terminal.ScanAll("BBBB");
+            terminal.Scan(new DiscountCard(1000));
+
+            Assert.Equal((decimal)16.83, terminal.CalculateTotal());
         }
 
         private Dictionary<string, Product> GetCatalog() =>
