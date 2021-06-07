@@ -31,6 +31,8 @@ namespace POSTerminal
             }
 
             _sale.Add(new SaleItem(product));
+            if (_discountCard != null)
+                _sale.Last().ApplyDiscount(_discountCard);
         }
 
         public void Scan(DiscountCard discountCard)
