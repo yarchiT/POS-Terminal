@@ -24,13 +24,13 @@ namespace POSTerminal
                 throw new ArgumentException("Unknown product.");
 
             var saleItem = _sale.Find(x => x.Product == product);
-            if (saleItem == null)
+            if (saleItem != null)
             {
-                _sale.Add(new SaleItem(product));
+                saleItem.Increment();
                 return;
             }
 
-            saleItem.Increment();
+            _sale.Add(new SaleItem(product));
         }
 
         public void Scan(DiscountCard discountCard)
