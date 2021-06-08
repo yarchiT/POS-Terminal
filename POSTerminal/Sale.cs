@@ -31,13 +31,10 @@ namespace POSTerminal
         {
             var finalSum = GetTotalPrice();
 
-            if (_discountCard != null)
-            {
-                _discountCard.AddCurrentSale(GetTotalWithoutDiscounts());
-                _discountCard = null;
-            }
+            if (_discountCard == null) return finalSum;
 
-            _sale = new List<SaleItem>();
+            _discountCard.AddCurrentSale(GetTotalWithoutDiscounts());
+            _discountCard = null;
 
             return finalSum;
         }

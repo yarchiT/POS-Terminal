@@ -31,7 +31,12 @@ namespace POSTerminal
         public decimal CalculateTotal() =>
             _sale.GetTotalPrice();
 
-        public decimal Checkout() =>
-            _sale.Checkout();
+        public decimal Checkout()
+        {
+            var total = _sale.Checkout();
+            _sale = new Sale();
+
+            return total;
+        }
     }
 }
