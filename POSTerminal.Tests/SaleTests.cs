@@ -30,5 +30,38 @@ namespace POSTerminal.Tests
 
             Assert.Equal(7, sale.GetTotalPrice());
         }
+
+        [Fact]
+        public void Checkout_WithDiscountCard_AmountOfSaleIsAddedToDiscountCard()
+        {
+            var sale = new Sale();
+            var discountCard = new DiscountCard(1000);
+
+            sale.Add(new Product("A", 2000));
+            sale.AddDiscountCard(discountCard);
+
+            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(1980, sale.Checkout());
+            Assert.Equal(3, discountCard.GetCurrentPercent());
+        }
+
+        [Fact]
+        public void Checkout_WithDiscountCard_DiscountCardAppliesNewPercentToNewSale()
+        {
+            var sale1 = new Sale();
+            var discountCard = new DiscountCard(1000);
+            var product = new Product("A", 2000);
+
+            sale1.Add(product);
+            sale1.AddDiscountCard(discountCard);
+            sale1.Checkout();
+            var sale2 = new Sale();
+            sale2.Add(product);
+            sale2.AddDiscountCard(discountCard);
+
+            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(1940, sale2.Checkout());
+            Assert.Equal(5, discountCard.GetCurrentPercent());
+        }
     }
 }

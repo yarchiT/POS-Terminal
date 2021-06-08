@@ -35,10 +35,23 @@ namespace POSTerminal
         public decimal Checkout()
         {
             var finalSum = GetTotalPrice();
+
+            if (_discountCard != null)
+            {
+                _discountCard.AddCurrentSale(GetTotalWithoutDiscounts());
+                _discountCard = null;
+            }
+
             _sale = new List<SaleItem>();
-            _discountCard = null;
 
             return finalSum;
+        }
+
+        private decimal GetTotalWithoutDiscounts()
+        {
+            return _sale
+                .TakeWhile(saleItem => saleItem.Product.VolumeDiscount == null)
+                .Sum(saleItem => saleItem.Product.Price * saleItem.Quantity);
         }
     }
 }
