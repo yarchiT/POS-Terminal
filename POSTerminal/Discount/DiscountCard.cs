@@ -5,7 +5,7 @@ namespace POSTerminal.Discount
 {
     public class DiscountCard
     {
-        private List<DiscountCardCondition> _conditions = new List<DiscountCardCondition>
+        private readonly List<DiscountCardCondition> _conditions = new List<DiscountCardCondition>
         {
             new DiscountCardCondition(0, 0, 999),
             new DiscountCardCondition(1, 1000, 1999),
