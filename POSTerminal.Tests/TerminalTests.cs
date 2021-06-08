@@ -41,7 +41,7 @@ namespace POSTerminal.Tests
         public void Checkout_ExistingProducts_FinishesSale()
         {
             var terminal = new Terminal(GetCatalog());
-            terminal.ScanAll("CCCCCCC");
+            terminal.ScanAll("ABA");
 
             Assert.Equal((decimal)6.75, terminal.Checkout());
             Assert.Equal(0, terminal.CalculateTotal());
