@@ -17,7 +17,7 @@ namespace POSTerminal
 
         public void Scan(string code)
         {
-            var product = _products.SingleOrDefault(x => x.Key == code).Value;
+            _products.TryGetValue(code, out var product);
 
             if (product == null)
                 throw new ArgumentException("Unknown product.");
