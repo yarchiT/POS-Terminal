@@ -32,7 +32,7 @@ namespace POSTerminal.Discount
         public decimal GetPrice(int itemsQuantity, decimal unitPrice) =>
             unitPrice * itemsQuantity - unitPrice * itemsQuantity * GetCurrentPercent()/100;
 
-        private decimal GetCurrentPercent() =>
+        public decimal GetCurrentPercent() =>
             _conditions.Single(c => c.AmountFrom <= _amount && (c.AmountTo == null || _amount < c.AmountTo)).Percent;
     }
 }
