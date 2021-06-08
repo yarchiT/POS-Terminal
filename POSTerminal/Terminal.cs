@@ -9,7 +9,7 @@ namespace POSTerminal
     {
         private readonly Dictionary<string, Product> _products;
         private List<SaleItem> _sale = new();
-        private DiscountCard _discountCard;
+        private DiscountCard? _discountCard;
 
         public Terminal(Dictionary<string, Product> products)
         {
