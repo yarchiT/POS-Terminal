@@ -46,6 +46,37 @@ namespace POSTerminal.Tests
         }
 
         [Fact]
+        public void Checkout_WithDiscountCard_DiscountAppliesToProductIfVolumeIsNotReached()
+        {
+            var sale1 = new Sale();
+            var discountCard = new DiscountCard(1000);
+            var product = new Product("A", 2000, new VolumeDiscount(3000, 2));
+
+            sale1.Add(product);
+            sale1.AddDiscountCard(discountCard);
+
+            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(1980, sale1.Checkout());
+            Assert.Equal(3, discountCard.GetCurrentPercent());
+        }
+
+        [Fact]
+        public void Checkout_WithDiscountCard_NoDiscountForVolume()
+        {
+            var sale1 = new Sale();
+            var product = new Product("A", 2000, new VolumeDiscount(3000, 2));
+            var discountCard = new DiscountCard(1000);
+
+            sale1.Add(product);
+            sale1.Add(product);
+            sale1.AddDiscountCard(discountCard);
+
+            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(3000, sale1.Checkout());
+            Assert.Equal(1, discountCard.GetCurrentPercent());
+        }
+
+        [Fact]
         public void Checkout_WithDiscountCard_DiscountCardAppliesNewPercentToNewSale()
         {
             var sale1 = new Sale();

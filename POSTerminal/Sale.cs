@@ -42,8 +42,8 @@ namespace POSTerminal
         private decimal GetTotalWithoutDiscounts()
         {
             return _sale
-                .TakeWhile(saleItem => saleItem.Product.VolumeDiscount == null)
-                .Sum(saleItem => saleItem.Product.Price * saleItem.Quantity);
+                .Where(saleItem => !saleItem.Product.IsVolumeDiscountValidFor(saleItem.Quantity))
+                .Sum(saleItem => saleItem.Total());
         }
     }
 }

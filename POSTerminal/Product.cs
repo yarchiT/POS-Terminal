@@ -14,5 +14,8 @@ namespace POSTerminal
             Price = price;
             VolumeDiscount = volumeDiscount;
         }
+
+        public bool IsVolumeDiscountValidFor(int quantity) =>
+            VolumeDiscount != null && quantity >= VolumeDiscount.Quantity;
     }
 }

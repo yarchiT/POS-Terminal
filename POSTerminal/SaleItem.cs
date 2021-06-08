@@ -19,8 +19,9 @@ namespace POSTerminal
 
         private decimal? PriceWithDiscount(DiscountCard? discountCard)
         {
-            return Product.VolumeDiscount?.GetPrice(Quantity, Product.Price) ??
-                   discountCard?.GetPrice(Quantity, Product.Price);
+            return Product.IsVolumeDiscountValidFor(Quantity)
+                ? Product.VolumeDiscount?.GetPrice(Quantity, Product.Price)
+                : discountCard?.GetPrice(Quantity, Product.Price);
         }
     }
 }
