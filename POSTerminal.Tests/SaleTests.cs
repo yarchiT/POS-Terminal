@@ -63,5 +63,23 @@ namespace POSTerminal.Tests
             Assert.Equal(1940, sale2.Checkout());
             Assert.Equal(5, discountCard.GetCurrentPercent());
         }
+
+        [Fact]
+        public void Checkout_WithoutDiscountCard_DiscountCardDoesntApplyToNewSale()
+        {
+            var sale1 = new Sale();
+            var discountCard = new DiscountCard(1000);
+            var product = new Product("A", 2000);
+
+            sale1.Add(product);
+            sale1.AddDiscountCard(discountCard);
+            sale1.Checkout();
+            var sale2 = new Sale();
+            sale2.Add(product);
+
+            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(2000, sale2.Checkout());
+            Assert.Equal(3, discountCard.GetCurrentPercent());
+        }
     }
 }
