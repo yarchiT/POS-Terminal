@@ -29,7 +29,7 @@ namespace POSTerminal.Discount
         public void AddCurrentSale(decimal amount) =>
             _amount += amount;
 
-        public decimal GetTotalPrice(int itemsQuantity, decimal unitPrice) =>
+        public decimal GetPrice(int itemsQuantity, decimal unitPrice) =>
             unitPrice * itemsQuantity - unitPrice * itemsQuantity * GetCurrentPercent()/100;
 
         private decimal GetCurrentPercent() =>
