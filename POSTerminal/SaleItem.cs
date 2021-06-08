@@ -23,7 +23,7 @@ namespace POSTerminal
 
         private decimal? PriceWithDiscount()
         {
-            return Product.VolumeDiscount?.GetTotalPrice(_quantity, Product.Price) ??
+            return Product.VolumeDiscount?.GetPrice(_quantity, Product.Price) ??
                    Discount?.GetPrice(_quantity, Product.Price);
         }
     }

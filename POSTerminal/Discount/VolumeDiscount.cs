@@ -11,7 +11,7 @@
             Quantity = quantity;
         }
 
-        public decimal GetTotalPrice(int itemsQuantity, decimal unitPrice) =>
+        public decimal GetPrice(int itemsQuantity, decimal unitPrice) =>
             itemsQuantity / Quantity * Price + itemsQuantity % Quantity * unitPrice;
     }
 }

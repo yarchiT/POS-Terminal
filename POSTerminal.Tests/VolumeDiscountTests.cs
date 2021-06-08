@@ -10,7 +10,7 @@ namespace POSTerminal.Tests
         {
             var volumeDiscount = new VolumeDiscount(5, 6);
 
-            Assert.Equal(5, volumeDiscount.GetTotalPrice(6, 1));
+            Assert.Equal(5, volumeDiscount.GetPrice(6, 1));
         }
 
         [Fact]
@@ -18,7 +18,7 @@ namespace POSTerminal.Tests
         {
             var volumeDiscount = new VolumeDiscount(5, 6);
 
-            Assert.Equal(6, volumeDiscount.GetTotalPrice(7, 1));
+            Assert.Equal(6, volumeDiscount.GetPrice(7, 1));
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace POSTerminal.Tests
         {
             var volumeDiscount = new VolumeDiscount(5, 6);
 
-            Assert.Equal(4, volumeDiscount.GetTotalPrice(4, 1));
+            Assert.Equal(4, volumeDiscount.GetPrice(4, 1));
         }
     }
 }
