@@ -6,7 +6,7 @@ namespace POSTerminal
 {
     public class Sale
     {
-        private List<SaleItem> _sale = new();
+        private readonly List<SaleItem> _sale = new();
         private DiscountCard? _discountCard;
 
         public void Add(Product product)
