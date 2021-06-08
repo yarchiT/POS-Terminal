@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace POSTerminal.Discount
 {
-    public class DiscountCard : Discount
+    public class DiscountCard
     {
         private List<DiscountCardCondition> _conditions = new List<DiscountCardCondition>
         {
@@ -29,7 +29,7 @@ namespace POSTerminal.Discount
         public void AddCurrentSale(decimal amount) =>
             _amount += amount;
 
-        public override decimal GetTotalPrice(int itemsQuantity, decimal unitPrice) =>
+        public decimal GetTotalPrice(int itemsQuantity, decimal unitPrice) =>
             unitPrice * itemsQuantity - unitPrice * itemsQuantity * GetCurrentPercent()/100;
 
         private decimal GetCurrentPercent() =>
