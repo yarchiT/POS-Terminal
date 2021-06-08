@@ -19,18 +19,13 @@ namespace POSTerminal
             }
 
             _sale.Add(new SaleItem(product));
-            if (_discountCard != null)
-                _sale.Last().ApplyDiscount(_discountCard);
         }
 
-        public void AddDiscountCard(DiscountCard discountCard)
-        {
+        public void AddDiscountCard(DiscountCard discountCard) =>
             _discountCard = discountCard;
-            _sale.ForEach(x => x.ApplyDiscount(discountCard));
-        }
 
         public decimal GetTotalPrice() =>
-            _sale.Sum(x => x.Total());
+            _sale.Sum(x => x.Total(_discountCard));
 
         public decimal Checkout()
         {

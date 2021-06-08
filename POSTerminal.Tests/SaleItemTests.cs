@@ -51,9 +51,7 @@ namespace POSTerminal.Tests
             saleItem.Increment();
             saleItem.Increment();
 
-            saleItem.ApplyDiscount(new DiscountCard(1500));
-
-            Assert.Equal(990, saleItem.Total());
+            Assert.Equal(990, saleItem.Total(new DiscountCard(1500)));
         }
     }
 }

@@ -6,25 +6,21 @@ namespace POSTerminal
     {
         public readonly Product Product;
         public int Quantity { get; private set; } = 1;
-        private DiscountCard? Discount { get; set; }
 
         public SaleItem(Product product)
         {
             Product = product;
         }
 
-        public void ApplyDiscount(DiscountCard discountCard) =>
-            Discount = discountCard;
-
         public void Increment() => Quantity++;
 
-        public decimal Total() =>
-            PriceWithDiscount() ?? Product.Price * Quantity;
+        public decimal Total(DiscountCard? discountCard = null) =>
+            PriceWithDiscount(discountCard) ?? Product.Price * Quantity;
 
-        private decimal? PriceWithDiscount()
+        private decimal? PriceWithDiscount(DiscountCard? discountCard)
         {
             return Product.VolumeDiscount?.GetPrice(Quantity, Product.Price) ??
-                   Discount?.GetPrice(Quantity, Product.Price);
+                   discountCard?.GetPrice(Quantity, Product.Price);
         }
     }
 }
