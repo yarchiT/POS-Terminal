@@ -8,8 +8,7 @@ namespace POSTerminal
     public class Terminal
     {
         private readonly Dictionary<string, Product> _products;
-        private List<SaleItem> _sale = new();
-        private DiscountCard? _discountCard;
+        private Sale _sale = new();
 
         public Terminal(Dictionary<string, Product> products)
         {
@@ -23,33 +22,16 @@ namespace POSTerminal
             if (product == null)
                 throw new ArgumentException("Unknown product.");
 
-            var saleItem = _sale.Find(x => x.Product == product);
-            if (saleItem != null)
-            {
-                saleItem.Increment();
-                return;
-            }
-
-            _sale.Add(new SaleItem(product));
-            if (_discountCard != null)
-                _sale.Last().ApplyDiscount(_discountCard);
+            _sale.Add(product);
         }
 
-        public void Scan(DiscountCard discountCard)
-        {
-            _discountCard = discountCard;
-            _sale.ForEach(x => x.ApplyDiscount(discountCard));
-        }
+        public void Scan(DiscountCard discountCard) =>
+            _sale.AddDiscountCard(discountCard);
 
         public decimal CalculateTotal() =>
-            _sale.Sum(x => x.Total());
+            _sale.GetTotalPrice();
 
-        public decimal Checkout()
-        {
-            var finalSum = CalculateTotal();
-            _sale = new List<SaleItem>();
-
-            return finalSum;
-        }
+        public decimal Checkout() =>
+            _sale.Checkout();
     }
 }
