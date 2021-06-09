@@ -10,8 +10,5 @@
             Price = price;
             Quantity = quantity;
         }
-
-        public decimal GetPrice(int itemsQuantity, decimal unitPrice) =>
-            itemsQuantity / Quantity * Price + itemsQuantity % Quantity * unitPrice;
     }
 }
