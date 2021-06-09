@@ -2,16 +2,16 @@
 {
     public class VolumeDiscount
     {
-        private readonly decimal _price;
+        public readonly decimal Price;
         public readonly int Quantity;
 
         public VolumeDiscount(decimal price, int quantity)
         {
-            _price = price;
+            Price = price;
             Quantity = quantity;
         }
 
         public decimal GetPrice(int itemsQuantity, decimal unitPrice) =>
-            itemsQuantity / Quantity * _price + itemsQuantity % Quantity * unitPrice;
+            itemsQuantity / Quantity * Price + itemsQuantity % Quantity * unitPrice;
     }
 }
