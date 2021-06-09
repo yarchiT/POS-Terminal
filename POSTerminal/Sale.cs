@@ -24,9 +24,13 @@ namespace POSTerminal
         public void AddDiscountCard(DiscountCard discountCard) =>
             _discountCard = discountCard;
 
-        public decimal GetTotalPrice() =>
-            _sale.Sum(
-                x => _discountCard?.Apply(x.GetPrice().UnitPrice) + x.GetPrice().VolumePrice ?? x.GetPrice().Total);
+        public decimal GetTotalPrice()
+        {
+            return _sale
+                .Select(saleItem => saleItem.GetPrice())
+                .Select(price => _discountCard?.Apply(price.UnitPrice) + price.VolumePrice ?? price.Total)
+                .Sum();
+        }
 
         public decimal Checkout()
         {

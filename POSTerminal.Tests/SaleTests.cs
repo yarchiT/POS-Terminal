@@ -40,9 +40,9 @@ namespace POSTerminal.Tests
             sale.Add(new Product("A", 2000));
             sale.AddDiscountCard(discountCard);
 
-            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(1, discountCard.CurrentPercent());
             Assert.Equal(1980, sale.Checkout());
-            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(3, discountCard.CurrentPercent());
         }
 
         [Fact]
@@ -55,9 +55,9 @@ namespace POSTerminal.Tests
             sale1.Add(product);
             sale1.AddDiscountCard(discountCard);
 
-            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(1, discountCard.CurrentPercent());
             Assert.Equal(1980, sale1.Checkout());
-            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(3, discountCard.CurrentPercent());
         }
 
         [Fact]
@@ -71,9 +71,9 @@ namespace POSTerminal.Tests
             sale1.Add(product);
             sale1.AddDiscountCard(discountCard);
 
-            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(1, discountCard.CurrentPercent());
             Assert.Equal(3000, sale1.Checkout());
-            Assert.Equal(1, discountCard.GetCurrentPercent());
+            Assert.Equal(1, discountCard.CurrentPercent());
         }
 
         [Fact]
@@ -90,9 +90,9 @@ namespace POSTerminal.Tests
             sale2.Add(product);
             sale2.AddDiscountCard(discountCard);
 
-            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(3, discountCard.CurrentPercent());
             Assert.Equal(1940, sale2.Checkout());
-            Assert.Equal(5, discountCard.GetCurrentPercent());
+            Assert.Equal(5, discountCard.CurrentPercent());
         }
 
         [Fact]
@@ -108,9 +108,28 @@ namespace POSTerminal.Tests
             var sale2 = new Sale();
             sale2.Add(product);
 
-            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(3, discountCard.CurrentPercent());
             Assert.Equal(2000, sale2.Checkout());
-            Assert.Equal(3, discountCard.GetCurrentPercent());
+            Assert.Equal(3, discountCard.CurrentPercent());
+        }
+
+        [Fact]
+        public void Checkout_WithDiscountCard_DiscountCardAddsOnlyUnitPriceToBalance()
+        {
+            var sale = new Sale();
+            var discountCard = new DiscountCard(1000);
+            var product = new Product("A", 1000, new VolumeDiscount(2000, 3));
+
+            sale.Add(product);
+            sale.Add(product);
+            sale.Add(product);
+            sale.Add(product);
+
+            sale.AddDiscountCard(discountCard);
+
+            Assert.Equal(1000, discountCard.Balance);
+            Assert.Equal(2990, sale.Checkout());
+            Assert.Equal(2000, discountCard.Balance);
         }
     }
 }

@@ -14,25 +14,25 @@ namespace POSTerminal.Discount
             new DiscountCardCondition(7, 9999)
         };
 
-        private decimal _balance;
+        public decimal Balance { get; private set; }
 
         public DiscountCard()
         {
-            _balance = 0;
+            Balance = 0;
         }
 
         public DiscountCard(decimal balance)
         {
-            _balance = balance;
+            Balance = balance;
         }
 
         public void AddCurrentSale(decimal amount) =>
-            _balance += amount;
+            Balance += amount;
 
         public decimal Apply(decimal quantity) =>
-            quantity - quantity * GetCurrentPercent()/100;
+            quantity - quantity * CurrentPercent()/100;
 
-        public decimal GetCurrentPercent() =>
-            _conditions.Single(c => c.AmountFrom <= _balance && (c.AmountTo == null || _balance < c.AmountTo)).Percent;
+        public decimal CurrentPercent() =>
+            _conditions.Single(c => c.AmountFrom <= Balance && (c.AmountTo == null || Balance < c.AmountTo)).Percent;
     }
 }
