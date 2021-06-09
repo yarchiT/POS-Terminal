@@ -25,7 +25,8 @@ namespace POSTerminal
             _discountCard = discountCard;
 
         public decimal GetTotalPrice() =>
-            _sale.Sum(x => x.Total(_discountCard));
+            _sale.Sum(
+                x => _discountCard?.Apply(x.GetPrice().UnitPrice) + x.GetPrice().VolumePrice ?? x.GetPrice().Total);
 
         public decimal Checkout()
         {
@@ -39,11 +40,7 @@ namespace POSTerminal
             return finalSum;
         }
 
-        private decimal GetTotalWithoutDiscounts()
-        {
-            return _sale
-                .Where(saleItem => !saleItem.Product.IsVolumeDiscountValidFor(saleItem.Quantity))
-                .Sum(saleItem => saleItem.Total());
-        }
+        private decimal GetTotalWithoutDiscounts() =>
+            _sale.Sum(x => x.GetPrice().UnitPrice);
     }
 }

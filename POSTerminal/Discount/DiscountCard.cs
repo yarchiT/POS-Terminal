@@ -29,8 +29,8 @@ namespace POSTerminal.Discount
         public void AddCurrentSale(decimal amount) =>
             _balance += amount;
 
-        public decimal GetPrice(int itemsQuantity, decimal unitPrice) =>
-            unitPrice * itemsQuantity - unitPrice * itemsQuantity * GetCurrentPercent()/100;
+        public decimal Apply(decimal quantity) =>
+            quantity - quantity * GetCurrentPercent()/100;
 
         public decimal GetCurrentPercent() =>
             _conditions.Single(c => c.AmountFrom <= _balance && (c.AmountTo == null || _balance < c.AmountTo)).Percent;

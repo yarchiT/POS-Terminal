@@ -10,7 +10,7 @@ namespace POSTerminal.Tests
         {
             var discountCard = new DiscountCard();
 
-            Assert.Equal(10, discountCard.GetPrice(5, 2));
+            Assert.Equal(10, discountCard.Apply(10));
         }
 
         [Fact]
@@ -18,19 +18,19 @@ namespace POSTerminal.Tests
         {
             var discountCard = new DiscountCard(1500);
 
-            Assert.Equal(990, discountCard.GetPrice(100, 10));
+            Assert.Equal(990, discountCard.Apply(1000));
         }
 
         [Fact]
         public void AddCurrentSale_AfterAddingLastSale_AppliesNewDiscountPercent()
         {
             var discountCard = new DiscountCard(1500);
-            var totalPriceWithOnePercentDiscount = discountCard.GetPrice(100, 10);
+            var totalPriceWithOnePercentDiscount = discountCard.Apply(1000);
 
             discountCard.AddCurrentSale(1000);
 
             Assert.Equal(990, totalPriceWithOnePercentDiscount);
-            Assert.Equal(970, discountCard.GetPrice(100, 10));
+            Assert.Equal(970, discountCard.Apply(1000));
         }
     }
 }

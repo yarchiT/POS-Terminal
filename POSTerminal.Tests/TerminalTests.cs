@@ -55,7 +55,7 @@ namespace POSTerminal.Tests
             terminal.Scan(new DiscountCard(1000));
             terminal.ScanAll("CCCCCCC");
 
-            Assert.Equal((decimal)6.00, terminal.CalculateTotal());
+            Assert.Equal((decimal)5.99, terminal.CalculateTotal());
         }
 
         [Fact]

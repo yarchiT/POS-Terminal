@@ -14,14 +14,7 @@ namespace POSTerminal
 
         public void Increment() => Quantity++;
 
-        public decimal Total(DiscountCard? discountCard = null) =>
-            PriceWithDiscount(discountCard) ?? Product.Price * Quantity;
-
-        private decimal? PriceWithDiscount(DiscountCard? discountCard)
-        {
-            return Product.IsVolumeDiscountValidFor(Quantity)
-                ? Product.VolumeDiscount?.GetPrice(Quantity, Product.Price)
-                : discountCard?.GetPrice(Quantity, Product.Price);
-        }
+        public Price GetPrice() =>
+            PriceCalculator.Get(Product, Quantity);
     }
 }
